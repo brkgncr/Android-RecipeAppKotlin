@@ -1,10 +1,11 @@
-package com.burak.cookbook
+package com.burak.cookbook.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.burak.cookbook.R
 import com.burak.cookbook.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

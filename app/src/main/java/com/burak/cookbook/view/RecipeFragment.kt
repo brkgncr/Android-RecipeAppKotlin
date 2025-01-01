@@ -1,4 +1,4 @@
-package com.burak.cookbook
+package com.burak.cookbook.view
 
 import android.Manifest
 import android.content.Intent
@@ -32,7 +32,7 @@ class RecipeFragment : Fragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private var chooseImage : Uri? = null
-    private  var chooseBitmap : Bitmap? = null
+    private var chooseBitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,12 +100,12 @@ class RecipeFragment : Fragment() {
                     // we will ask for permission
                     permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
                 }
-            } else  {
+            } else {
                 // permission is granted, you can go directly to the gallery
                 val intenttoGalery = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 activityResultLauncher.launch(intenttoGalery)
             }
-        } else  {
+        } else {
             if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 // not allowed, need to be allowed
                 if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -121,7 +121,7 @@ class RecipeFragment : Fragment() {
                     // we will ask for permission
                     permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
-            } else  {
+            } else {
                 // permission is granted, you can go directly to the gallery
                 val intenttoGalery = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 activityResultLauncher.launch(intenttoGalery)
@@ -144,7 +144,7 @@ class RecipeFragment : Fragment() {
                             val source = ImageDecoder.createSource(requireActivity().contentResolver,chooseImage!!)
                             chooseBitmap = ImageDecoder.decodeBitmap(source)
                             binding.foodImageView.setImageBitmap(chooseBitmap)
-                        } else  {
+                        } else {
                             chooseBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,chooseImage)
                             binding.foodImageView.setImageBitmap(chooseBitmap)
                         }
@@ -162,7 +162,7 @@ class RecipeFragment : Fragment() {
                 // we can go to the gallery
                 val intenttoGalery = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 activityResultLauncher.launch(intenttoGalery)
-            } else  {
+            } else {
                 // not allowed
                 Toast.makeText(requireContext(), "Not allowed!", Toast.LENGTH_LONG).show()
 

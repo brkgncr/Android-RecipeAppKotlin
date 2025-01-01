@@ -1,4 +1,4 @@
-package com.burak.cookbook
+package com.burak.cookbook.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
