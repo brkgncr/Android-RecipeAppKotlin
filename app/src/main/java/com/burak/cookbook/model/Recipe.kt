@@ -5,14 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Cook (
+data class Recipe (
     // Make SQL Column name and types
 
     @ColumnInfo(name = "name")
     var name : String,
 
-    @ColumnInfo(name = "metarial")
-    var metarial : String,
+    @ColumnInfo(name = "material")
+    var material : String,
 
     @ColumnInfo(name = "recipe")
     var recipe : String,

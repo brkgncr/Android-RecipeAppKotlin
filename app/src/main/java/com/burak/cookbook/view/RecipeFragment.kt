@@ -19,8 +19,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
+import androidx.room.Room
 import com.burak.cookbook.databinding.FragmentRecipeBinding
+import com.burak.cookbook.model.Recipe
+import com.burak.cookbook.roomdb.RecipeDAO
+import com.burak.cookbook.roomdb.RecipeDatabase
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
@@ -33,10 +42,17 @@ class RecipeFragment : Fragment() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private var chooseImage : Uri? = null
     private var chooseBitmap : Bitmap? = null
+    private val mDisposable = CompositeDisposable()
+
+    private lateinit var db : RecipeDatabase
+    private  lateinit var  recipeDao : RecipeDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerLauncher()
+
+        db = Room.databaseBuilder(requireContext(),RecipeDatabase::class.java,"Recipe").build()
+        recipeDao =db.userDao()
     }
 
     override fun onCreateView(
@@ -74,7 +90,35 @@ class RecipeFragment : Fragment() {
     }
 
     fun save(view : View){
+        val name = binding.foodNameText.text.toString()
+        val recipe = binding.recipeText.text.toString()
+        val mealIngredients = binding.mealIngredientsText.text.toString()
 
+        if(chooseImage != null) {
+            val smallBitmap = makeMiniBitmap(chooseBitmap!!, 300)
+            val outputStream = ByteArrayOutputStream()
+            smallBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
+            val byteArray = outputStream.toByteArray()
+
+            val recipe = Recipe(name,recipe,mealIngredients,byteArray)
+
+            // RxJava
+
+            mDisposable.add(
+                recipeDao.insert(recipe)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResponseInsert)
+            )
+
+        }
+
+    }
+
+    private fun handleResponseInsert() {
+        // return to previous fragment
+        val action = RecipeFragmentDirections.actionRecipeFragmentToListFragment()
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
     fun delete(view : View){
@@ -170,6 +214,27 @@ class RecipeFragment : Fragment() {
 
         }
 
+    }
+
+    private fun makeMiniBitmap(chooseUserBitmap : Bitmap, maxSize :Int) : Bitmap {
+        var width = chooseUserBitmap.width
+        var height = chooseUserBitmap.height
+
+        val bitmapRatio : Double = width.toDouble() / height.toDouble()
+
+        if(bitmapRatio > 1) {
+            // image horizontal
+            width = maxSize
+            val shortenedHeight = width / bitmapRatio
+            height = shortenedHeight.toInt()
+        } else {
+            // image vertical
+            height = maxSize
+            val shortenedWidth = height * bitmapRatio
+            width = shortenedWidth.toInt()
+        }
+
+        return Bitmap.createScaledBitmap(chooseUserBitmap,width,height,true)
     }
 
     override fun onDestroyView() {
