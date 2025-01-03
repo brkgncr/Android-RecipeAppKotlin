@@ -7,5 +7,5 @@ import com.burak.cookbook.model.Recipe
 // Make SQL Creation
 @Database(entities = [Recipe::class], version = 1)
 abstract class RecipeDatabase : RoomDatabase() {
-    abstract fun userDao(): RecipeDAO
+    abstract fun recipeDao(): RecipeDAO
 }

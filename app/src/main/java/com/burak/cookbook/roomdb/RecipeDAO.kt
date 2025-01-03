@@ -11,7 +11,6 @@ import io.reactivex.rxjava3.core.Flowable
 @Dao
 interface RecipeDAO {
     // Make SQL Queries
-
     @Query("SELECT * FROM Recipe")
     fun getALL() : Flowable<List<Recipe>>
 
