@@ -1,12 +1,14 @@
-CookBook Android App
+# CookBook Android App
 CookBook is a simple Android app that allows users to easily add, view, and delete recipes. The app is developed using Kotlin and follows the MVVM (Model-View-ViewModel) architecture for a cleaner and more maintainable code structure.
 
-Features
+## Features
+
 Recipe Listing: Starts with an empty list, and as recipes are added, they appear in the list.
 Add Recipe: Users can click the + button to add a recipe by providing an image, name, and ingredients.
 View and Edit Recipe: Tapping on a recipe in the list shows its details, and users can view or edit it.
 Delete Recipe: Recipes can be deleted from the details screen using the Delete button.
-Technologies Used
+
+## Technologies Used
 Kotlin: The app is developed using Kotlin.
 Room Database: Data is stored locally using Room.
 Navigation Component: Navigation between screens is handled using the Navigation Component.
