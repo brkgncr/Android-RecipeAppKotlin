@@ -20,4 +20,4 @@ RecipeApp is a simple Android app that allows users to easily add, view, and del
 
 ### Clone the Repository:
 ```bash
-git clone https://github.com/brkgncr/Android-CookBookKotlin.git
+git clone https://github.com/brkgncr/Android-RecipeAppKotlin.git
