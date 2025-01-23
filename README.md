@@ -1,4 +1,4 @@
-# CookBook Android App
+# RecipeApp Android App
 
 CookBook is a simple Android app that allows users to easily add, view, and delete recipes. The app is developed using **Kotlin** and follows the **MVVM (Model-View-ViewModel)** architecture for a cleaner and more maintainable code structure.
 
