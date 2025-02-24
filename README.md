@@ -1,4 +1,4 @@
-# RecipeApp - Android Application
+# Recipe App - Android Application
 
 RecipeApp is a simple Android app that allows users to easily add, view, and delete recipes. The app is developed using **Kotlin** and follows the **MVVM (Model-View-ViewModel)** architecture for a cleaner and more maintainable code structure.
 
